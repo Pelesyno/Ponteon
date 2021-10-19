@@ -15,7 +15,15 @@ if (session()->has('message')) {
     <div class="row">
         <div class="col-sm-12">
             <div class="card text-white bg-secondary mb-3 mt-4">
-                <div class="card-header"><?= $enquete['pergunta']; ?></div>
+                <div class="card-header">
+                    <?= $enquete['pergunta']; ?>
+                    <?php
+                    $url = base_url() . '/imagens/' . $enquete['id_enquete'] . '.png';
+                    $file_headers = @get_headers($url);
+                    if ($file_headers[0] !== 'HTTP/1.1 404 Not Found') : ?>
+                        <img class="float-right" src='<?= $url ?>' alt="Imagem da Enquete" width="150">
+                    <?php endif; ?>
+                </div>
                 <div class="card-body">
                     <input type="hidden" name="id_enquete" value="<?= $enquete['id_enquete'] ?>">
                     <?php foreach ($opRespostas as $opcoes) : ?>

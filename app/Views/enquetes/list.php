@@ -33,7 +33,7 @@ if (session()->has('message')) {
                             <tr>
                                 <td><?= $enquete['pergunta'] ?></td>
                                 <td>
-                                    <span id='<?= $enquete['id_enquete'] ?>'>http://ponteon.dsrtecnologia.com.br/index.php/enquetes/vote/<?= $enquete['id_enquete'] ?></span>
+                                    <span id='<?= $enquete['id_enquete'] ?>'><?= base_url('enquetes/vote') . '/' . $enquete['id_enquete'] ?></span>
                                     <button class="btn btn-sm btn-primary" onclick="copyDivToClipboard(<?= $enquete['id_enquete'] ?>)">Copiar Link</button>
                                 </td>
                                 <td align="center">
