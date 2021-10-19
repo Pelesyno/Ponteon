@@ -24,12 +24,14 @@
     body {
       font-family: "Lato", sans-serif;
     }
-    .bg-navbar{
+
+    .bg-navbar {
       background-color: #273396;
     }
-    .bg-footer{
-      background: linear-gradient(to bottom, #555555 0%,#313131 100%);
-      color: rgba(255,255,255,0.6);
+
+    .bg-footer {
+      background: linear-gradient(to bottom, #555555 0%, #313131 100%);
+      color: rgba(255, 255, 255, 0.6);
       text-shadow: 1px 1px 1px rgb(0 0 0 / 10%);
       font-size: 13px;
     }
@@ -63,15 +65,13 @@
         </span>
       </div>
     </nav>
-  <?php
-  endif; ?>
+  <?php endif; ?>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <?= $this->renderSection('content') ?>
       </div>
     </div>
-
   </div>
   <nav class="navbar fixed-bottom bg-footer">
     <div>Daniel da Silva Rodrigues</div>

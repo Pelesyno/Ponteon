@@ -18,7 +18,7 @@ if (session()->has('message')) {
     </div>
     <div class="card-body">
         <?php if (!empty($enquete) && is_array($enquete)) : ?>
-            <form action="<?= site_url('enquetes/update/' . $enquete['id_enquete']) ?>" method="post">
+            <form action="<?= site_url('enquetes/update/' . $enquete['id_enquete']) ?>" method="post"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="pergunta">Pergunta:</label>
                     <input type="text" class="form-control" name="pergunta" required value="<?= old('pergunta', $enquete['pergunta']) ?>">
@@ -29,12 +29,25 @@ if (session()->has('message')) {
                         </div>
                     <?php } ?>
                 </div>
+                <input type="file" class="form-control" name="image" accept='.png'>
                 <label>Opções:</label>
                 <button type="button" name="add" id="add" class="btn btn-success float-right mb20">Adicionar Resposta</button>
                 <table class="table table-bordered" id="add_new_resposta">
                     <?php for ($i = 0; $i < count($opRespostas); ++$i) : ?>
                         <tr id="row<?= $i ?>">
-                            <td><input type="text" name="resposta[][resp]" class="form-control name_list" required="" value="<?= old('resposta', $opRespostas[$i]['resposta']) ?>" /></td>
+                            <td>
+                                <input type="text" name="resposta[][resp]" class="form-control name_list" required="" value="<?= old('resposta', $opRespostas[$i]['resposta']) ?>" />
+                            </td>
+                            <?php if($i == 0): ?>
+                            <td rowspan="2">
+                                <?php
+                                $url = base_url() . '/imagens/' . $enquete['id_enquete'] . '.png';
+                                $file_headers = @get_headers($url);
+                                if ($file_headers[0] !== 'HTTP/1.1 404 Not Found') : ?>
+                                    <img class="float-right" src='<?= $url ?>' alt="Imagem da Enquete" width="150">
+                                <?php endif; ?>
+                            </td>
+                            <?php endif; ?>
                             <?php if ($i > 1) : ?>
                                 <td>
                                     <button type="button" name="remove" id="<?= $i ?>" class="btn btn-danger btn_remove">X</button>

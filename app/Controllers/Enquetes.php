@@ -45,9 +45,6 @@ class Enquetes extends BaseController
             return view('login');
         }
 
-        $request = service('request');
-        $postData = $request->getPost();
-
         $input = $this->validate([
             'pergunta' => 'required|min_length[3]',
             'resposta' => 'required'
@@ -64,6 +61,19 @@ class Enquetes extends BaseController
                 'id_user' => $this->session->get('id_user')
             ]);
             $id = $model->getInsertID();
+            
+            // $path = $this->request->getFile('image')->store('./imagens', $id . '.png');
+            if($img = $this->request->getFile('image'))
+            {
+                if ($img->isValid() && ! $img->hasMoved())
+                {
+                    $img->move('./imagens/', $id . '.png');
+                }
+            }
+            /* $img = $this->request->getFile('image');
+            $path->move(WRITEPATH.'imagens/', $id); */
+            
+
             foreach ($this->request->getPost('resposta') as $key => $value) {
                 $opResposta->save([
                     'resposta' => $value['resp'],
@@ -115,6 +125,13 @@ class Enquetes extends BaseController
 
                 ## Update record
                 if ($enquetes->update($id, $data)) {
+                    if($img = $this->request->getFile('image'))
+                    {
+                        if ($img->isValid() && ! $img->hasMoved())
+                        {
+                            $img->move('./imagens/', $id . '.png', true);
+                        }
+                    }
                     $opResposta = new RespostasEnquetes();
                     $opResposta->where('id_enquete', $id)->delete();
 

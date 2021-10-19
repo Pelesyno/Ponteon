@@ -17,10 +17,12 @@ if (session()->has('message')) {
         Adicionar Enquete
     </div>
     <div class="card-body">
-    <form action="<?= site_url('enquetes/store') ?>" method="post">
+    <form action="<?= site_url('enquetes/store') ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="pergunta">Pergunta:</label>
                 <input type="text" class="form-control" name="pergunta" required value="<?= old('pergunta') ?>">
+
+                <input type="file" class="form-control" name="image" accept='.png'>
 
                 <!-- Error -->
                 <?php if ($validation->getError('pergunta')) { ?>
